@@ -1,0 +1,12 @@
+{
+  "extends": "@parcel/config-default",
+  "transformers": {
+    "*.{jpeg,jpg,png,ico,svg,ttf}": [
+      "@parcel/transformer-raw"
+    ],
+    "*.{ts,tsx}": ["@parcel/transformer-typescript-tsc", "@parcel/transformer-react-refresh-wrap"]
+  },
+  "validators": {
+    "*.{ts,tsx}": ["@parcel/validator-typescript"]
+  }
+}

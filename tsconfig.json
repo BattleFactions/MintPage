@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "jsx": "react",
+    "baseUrl": ".",
+    "target": "es5",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "types": [ "node" ],
+    "typeRoots": [ "node_modules/@types", "@types" ],
+    "paths": {
+      "app/*": ["./src/*"],
+      "test/*": ["./test/*"],
+      "common/*": ["./src/common/*"]
+    },
+    "noImplicitAny": false,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "downlevelIteration": true
+  },
+  "include": ["src/**/*", "test/**/*"],
+  "exclude": ["node_modules/"]
+}
