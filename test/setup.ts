@@ -9,10 +9,6 @@ Object.assign(global.console, {
   info: jest.fn(),
 });
 
-// Override the Read-only property document.body sizes to meet the window sizes
-jest.spyOn(global.document.body, 'clientWidth', 'get').mockImplementation(() => global.innerWidth);
-jest.spyOn(global.document.body, 'clientHeight', 'get').mockImplementation(() => global.innerHeight);
-
 process.env.ENV = 'test';
 
 // Log Node Unhandled Behaviours
