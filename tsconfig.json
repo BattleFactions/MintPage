@@ -4,13 +4,14 @@
     "baseUrl": ".",
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
-    "types": [ "node" ],
-    "typeRoots": [ "node_modules/@types", "@types" ],
+    "types": ["node"],
+    "typeRoots": ["node_modules/@types", "@types"],
     "paths": {
       "app/*": ["./src/*"],
       "test/*": ["./test/*"],
       "common/*": ["./src/common/*"]
     },
+    "jsxImportSource": "@emotion/react",
     "noImplicitAny": false,
     "esModuleInterop": true,
     "resolveJsonModule": true,

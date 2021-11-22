@@ -1,16 +1,32 @@
 import React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import Rarity from 'app/pages/Rarity';
+import CssBaseline from '@mui/material/CssBaseline';
+import { ThemeProvider as MUIThemeProvider } from '@mui/material';
+import { ThemeProvider } from '@emotion/react';
+import styled from '@emotion/styled';
+import theme from 'app/theme/Theme';
+import Header from 'app/components/Header';
+import Rarity from 'app/components/Rarity';
 
-const App: React.FC = () => {
+const AppStyled = styled.div`
+  background-color: #161616;
+  color: #ffffff;
+`;
+
+const AppContent = () => (
+  <AppStyled>
+    <Header />
+    <Rarity />
+  </AppStyled>
+);
+
+const App = (props) => {
   return (
-    <BrowserRouter>
-      <Switch>
-        <Route path="/">
-          <Rarity />
-        </Route>
-      </Switch>
-    </BrowserRouter>
+    <MUIThemeProvider theme={theme}>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <AppContent {...props} />
+      </ThemeProvider>
+    </MUIThemeProvider>
   );
 };
 
