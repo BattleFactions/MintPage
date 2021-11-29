@@ -14,30 +14,11 @@ const theme: ThemeOptions = createTheme({
     },
     action: {
       active: '#FFFFFF',
-      // hover: '#5CB85C',
     },
   },
   typography: {
     allVariants: {
       color: 'white',
-    },
-  },
-  components: {
-    MuiInputBase: {
-      styleOverrides: {
-        input: {
-          // color: 'white',
-          // ':hover': {
-          //   borderBottom: '1px solid rgba(2, 2, 2)',
-          // },
-          // '::before': {
-          //   borderBottom: '1px solid rgba(0, 0, 0, 0.42)',
-          // },
-          // '::after': {
-          //   borderBottom: '1px solid rgba(4, 4, 4, 0.42)',
-          // },
-        },
-      },
     },
   },
 });

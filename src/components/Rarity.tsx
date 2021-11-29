@@ -12,6 +12,8 @@ import Search from '@mui/icons-material/Search';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
+import Box from '@mui/material/Box';
+import Alert from '@mui/material/Alert';
 import axios from 'axios';
 
 const rarity = css({
@@ -34,15 +36,41 @@ type NftProperty = {
 };
 
 type NftProps = {
-  id: string;
-  image: string;
-  imageAlt: string;
-  properties: NftProperty[];
+  id?: string;
+  image?: string;
+  imageAlt?: string;
+  properties?: NftProperty[];
+  hasError?: boolean;
+  message?: string;
 };
 
 const Space = styled.div`
   padding-top: 48px;
 `;
+
+function AttributeCard(props: { property: NftProperty }) {
+  return (
+    <Box
+      sx={{
+        boxShadow: 3,
+        bgcolor: 'background.paper',
+        m: 1,
+        p: 1,
+        minHeight: 82,
+        width: 200,
+        alignContent: 'center',
+        alignItems: 'center',
+      }}
+    >
+      <Typography sx={{ fontSize: 14, minWidth: 100 }} color="text.secondary" gutterBottom>
+        {props.property.label}
+      </Typography>
+      <Typography variant="h6" component="div">
+        {props.property.value}
+      </Typography>
+    </Box>
+  );
+}
 
 const Rarity = () => {
   const [error, setError] = React.useState<ErrorProps>({
@@ -95,7 +123,7 @@ const Rarity = () => {
         });
       })
       .catch(function (error) {
-        console.log(error);
+        setNft({ hasError: true, message: "This BattleFactions # doesn't exist or wasn't minted yet." });
       });
   };
 
@@ -132,6 +160,7 @@ const Rarity = () => {
                   ),
                 }}
                 sx={{
+                  minWidth: 300,
                   bgcolor: 'background.paper',
                   borderRadius: 1,
                 }}
@@ -139,23 +168,23 @@ const Rarity = () => {
             </form>
           </Grid>
           <Grid item xs={8} sm={8} md={8}>
-            {nft && (
-              <Card sx={{ minWidth: 275 }}>
+            {nft && !nft.hasError && (
+              <Card sx={{ minWidth: 300 }}>
                 <CardMedia component="img" height="450" image={nft.image} alt={nft.imageAlt} />
-                <CardContent>
-                  {nft.properties.map((property) => (
-                    <>
-                      <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                        {property.label}
-                      </Typography>
-                      <Typography variant="h5" component="div">
-                        {property.value}
-                      </Typography>
-                    </>
+                <CardContent
+                  sx={{
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                  }}
+                >
+                  <AttributeCard property={{ label: 'Rank', value: '1' }} />
+                  {nft.properties.map((property, index) => (
+                    <AttributeCard key={index} property={property} />
                   ))}
                 </CardContent>
               </Card>
             )}
+            {nft && nft.hasError && <Alert severity="error">{nft.message}</Alert>}
           </Grid>
           <Grid item xs={8} sm={8} md={8} />
         </Grid>
