@@ -37,6 +37,7 @@ type NftProperty = {
 
 type NftProps = {
   id?: string;
+  rank?: string;
   image?: string;
   imageAlt?: string;
   properties?: NftProperty[];
@@ -100,23 +101,20 @@ const Rarity = () => {
     }
 
     axios
-      .get(`https://api.x.immutable.com/v1/assets/0xb941a7373e1dd60ad75e3460f849f28dd4bd6a07/${values.bfNumber}`)
+      .get(`https://6rid2p6sef.execute-api.ap-southeast-2.amazonaws.com/prod/rarity/${values.bfNumber}`)
       .then(function ({ data }) {
-        console.log('BattleFactions #', data);
-
         const properties: NftProperty[] = [];
-        const metadata = data['metadata'];
-        for (const key in metadata) {
-          if (key === 'image_url' || key === 'description') continue;
+        for (const key in data) {
+          if (key === 'image_url' || key === 'rank' || key === 'id') continue;
           properties.push({
             label: key,
-            value: metadata[key],
+            value: data[key],
           });
         }
-        console.log('Properties', properties);
 
         setNft({
-          id: data['token_id'],
+          id: data['id'],
+          rank: data['rank'],
           image: data['image_url'],
           imageAlt: data['name'],
           properties,
@@ -177,7 +175,8 @@ const Rarity = () => {
                     flexWrap: 'wrap',
                   }}
                 >
-                  <AttributeCard property={{ label: 'Rank', value: '1' }} />
+                  <AttributeCard property={{ label: 'Rank', value: nft.rank }} />
+                  <AttributeCard property={{ label: 'BattleFactions #', value: nft.id }} />
                   {nft.properties.map((property, index) => (
                     <AttributeCard key={index} property={property} />
                   ))}
